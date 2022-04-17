@@ -296,3 +296,32 @@ $account->setInterestRate(0.05);
 $account->addInterest();
 echo $account->getBalance();
 
+
+
+<?php
+
+
+class SavingAccount extends BankAccount
+{
+	private $interestRate;
+
+	public function __construct($balance, $interestRate)
+	{
+		parent::__construct($balance);
+
+		$this->interestRate = $interestRate;
+	}
+
+	public function setInterestRate($interestRate)
+	{
+		$this->interestRate = $interestRate;
+	}
+
+	public function addInterest()
+	{
+		// calculate interest
+		$interest = $this->interestRate * $this->getBalance();
+		// deposit interest to the balance
+		$this->deposit($interest);
+	}
+}
