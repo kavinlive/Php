@@ -134,3 +134,115 @@ Try Catch Finally
 	*/
 
 ?>
+
+
+
+// MYSQLI Connection OOPS CRUD
+
+<?php
+
+        class DatabaseHelper {
+
+            private $db_host = "localhost";
+            private $db_user = "root";
+            private $db_pass = "";
+            private $db_database = "student";
+
+            private $conn = false;
+            private $result = array();
+
+            public function __construct()
+            {
+                if(!$this->conn)
+                {
+                  $this->conn = new  mysqli($this->db_host,$this->db_user,$this->db_pass,$this->db_database);
+                  if($this->conn)
+                  {
+                      echo "Connected";
+                  }
+                  if($this->conn->connect_error)
+                  {
+                      array_push($this->result,$this->conn->connect_error);
+                      return false;
+                  }
+                }
+                else {
+                    return true;
+                }
+            }
+
+            public function select($table, $id= array())
+            {
+                $Results = array();
+                if(empty($id))
+                {
+                    $sql = "SELECT * FROM ".$table;
+                    $rs = mysqli_query($this->conn, $sql);
+                    while($row = mysqli_fetch_assoc($rs))
+                    {
+                        $Results[] = $row;
+                    }
+                }
+                else {
+                    $id_key = implode(',',array_keys($id));
+                    $id_value = implode(',',$id);
+                    $sql = "SELECT * FROM ".$table." WHERE ".$id_key." = ".$id_value;
+                    $rs = mysqli_query($this->conn, $sql);
+                    while($row = mysqli_fetch_assoc($rs))
+                    {
+                        $Results[] = $row;
+                    }
+              }
+                return $Results;
+            }
+            public function Insert($table,$params = array())
+            {
+                $table_coloums = implode(', ', array_keys($params));
+            		$table_value = implode("', '", $params);
+            		$sql = "INSERT INTO $table ($table_coloums) VALUES ('$table_value')";
+            		if($this->conn->query($sql))
+            		{
+            			return true;
+            		}
+            		else
+            		{
+            			return false;
+            		}
+            }
+            public function Update($table,$params = array(),$id = array())
+            {
+                $table_coloum1 = implode(',',array_keys($params));
+                $table_value1 = implode(', ',$params);
+                $table_coloums = explode(',',$table_coloum1);
+                $table_value = explode(', ',$table_value1);
+                $id_coloums = implode(', ', array_keys($id));
+    		        $id_value = implode(', ', $id);
+
+                $SqlStr = "";
+                for($i =0; $i<count($table_coloums); $i++)
+                {
+                    $SqlStr.= $table_coloums[$i]." = '$table_value[$i]'";
+                    if($i!=(count($table_coloums)-1))
+                    {
+                        $SqlStr.=" ,";
+                    }
+                }
+                $sql = "Update $table set $SqlStr Where $id_coloums = $id_value";
+            		if($this->conn->query($sql))
+            		{
+            			return true;
+            		}
+            		else
+            		{
+            			return false;
+            		}
+            }
+            public function delete($table, $id = array())
+            {
+              $id_key = implode(',',array_keys($id));
+              $id_value = implode("','",$id);
+              $Sql = "DELETE FROM $table WHERE $id_key = $id_value";
+              return $this->conn->query($Sql);
+            }
+      }
+ ?>
