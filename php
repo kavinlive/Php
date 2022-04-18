@@ -420,6 +420,33 @@ class Android extends Robot
 }
 
 
+//Traits
+
+
+<?php
+class Base {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}
+
+$o = new MyHelloWorld();
+$o->sayHello();
+?>
+
+
+
 // WORD PRESS CHILD THEME
 
 style.css
@@ -477,6 +504,5 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: astra-child
 Template: astra
 */
-
 
 
