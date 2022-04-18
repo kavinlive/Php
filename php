@@ -418,3 +418,65 @@ class Android extends Robot
 		return uniqid('Android-');
 	}
 }
+
+
+// WORD PRESS CHILD THEME
+
+style.css
+@import url("../twentytwenty/style.css");
+/*
+ Theme Name:   Twenty Twenty Child
+ Theme URI:    http://example.com/twentytwenty/
+ Description:  Twenty Twenty Child Theme
+ Author:       John Doe
+ Author URI:   http://example.com
+ Template:     twentytwenty
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  twentyfifteenchild
+*/
+
+<?php
+/**
+ * Astra Child Theme functions and definitions
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package Astra Child
+ * @since 1.0.0
+ */
+
+/**
+ * Define Constants
+ */
+define( 'CHILD_THEME_ASTRA_CHILD_VERSION', '1.0.0' );
+
+/**
+ * Enqueue styles
+ */
+function child_enqueue_styles() {
+
+	wp_enqueue_style( 'astra-child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_ASTRA_CHILD_VERSION, 'all' );
+
+}
+
+add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
+
+?>
+
+/**
+Theme Name: Astra Child
+Author: Brainstorm Force
+Author URI: http://wpastra.com/about/
+Description: Astra is the fastest, fully customizable & beautiful theme suitable for blogs, personal portfolios and business websites. It is very lightweight (less than 50KB on frontend) and offers unparalleled speed. Built with SEO in mind, Astra comes with schema.org code integrated so search engines will love your site. Astra offers plenty of sidebar options and widget areas giving you a full control for customizations. Furthermore, we have included special features and templates so feel free to choose any of your favorite page builder plugin to create pages flexibly. Some of the other features: # WooCommerce Ready # Responsive # Compatible with major plugins # Translation Ready # Extendible with premium addons # Regularly updated # Designed, Developed, Maintained & Supported by Brainstorm Force. Looking for a perfect base theme? Look no further. Astra is fast, fully customizable and beautiful theme!
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: astra-child
+Template: astra
+*/
+
+
+
